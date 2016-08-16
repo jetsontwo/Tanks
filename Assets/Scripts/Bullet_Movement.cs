@@ -4,16 +4,11 @@ using System.Collections;
 public class Bullet_Movement : MonoBehaviour {
 
     public float speed;
-    private float time_passed, angle, wall, temp;
+    private float angle, wall, temp;
     private string cur_tag;
     private bool collided;
-    private BoxCollider2D bc;
+    private int times_bounced = 0;
 
-    void Start()
-    {
-        time_passed = 0;
-        bc = GetComponent<BoxCollider2D>();
-    }
 	// Update is called once per frame
 	void Update () {
         transform.Translate(new Vector3(0,speed,0));
@@ -23,9 +18,8 @@ public class Bullet_Movement : MonoBehaviour {
     {
         angle = transform.eulerAngles.z;
         cur_tag = c.tag;
-        print(cur_tag);
 
-        if(cur_tag == "wall_N" || cur_tag == "wall_W" || cur_tag == "wall_E" || cur_tag == "wall_S")
+        if(cur_tag == "wall_N" || cur_tag == "wall_W" || cur_tag == "wall_E" || cur_tag == "wall_S" && times_bounced < 4)
         {
             if (transform.eulerAngles.z >= 0 && transform.eulerAngles.z < 90)
             {
@@ -82,8 +76,9 @@ public class Bullet_Movement : MonoBehaviour {
                 angle = temp + wall;
 
             }
+            times_bounced += 1;
         }
-        else if (cur_tag == "target")
+        else if (cur_tag == "target" || times_bounced >= 4)
         {
             Destroy(gameObject);
         }

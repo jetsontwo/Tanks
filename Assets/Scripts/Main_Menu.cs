@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Main_Menu : MonoBehaviour {
+
+    public GameObject instructions;
 
 	public void Start_Game()
     {
@@ -11,11 +14,6 @@ public class Main_Menu : MonoBehaviour {
 
     public void Instructions()
     {
-        SceneManager.LoadScene(2);
-    }
-
-    public void Return()
-    {
-        SceneManager.LoadScene(0);
+        instructions.SetActive(true);
     }
 }

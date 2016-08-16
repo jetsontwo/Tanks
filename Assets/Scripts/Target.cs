@@ -5,20 +5,23 @@ public class Target : MonoBehaviour {
 
     public Object explosion;
     private SpriteRenderer sr;
-    public Score_Count sc;
+    private GameObject UI_holder;
+    private Game_UI GUI;
+
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "bullet_red")
         {
-            sc.add_score();
             Instantiate(explosion, new Vector3(transform.position.x,transform.position.y,transform.position.z), Quaternion.identity);
-            Destroy(col.gameObject);
             Destroy(gameObject);
+            GUI.add_score();
         }
     }
     void Start()
     {
+        UI_holder = GameObject.FindGameObjectWithTag("MainCamera");
+        GUI = UI_holder.GetComponent<Game_UI>();
         sr = gameObject.GetComponent<SpriteRenderer>();
     }
     void LateUpdate()
@@ -29,7 +32,7 @@ public class Target : MonoBehaviour {
         }
         else
         {
-            sr.material.color = new Color(sr.material.color.r, sr.material.color.g, sr.material.color.b, sr.material.color.a - 0.005f);
+            sr.material.color = new Color(sr.material.color.r, sr.material.color.g, sr.material.color.b, sr.material.color.a - 0.002f);
         }
     }
 }

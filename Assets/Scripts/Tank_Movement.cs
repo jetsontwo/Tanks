@@ -10,6 +10,7 @@ public class Tank_Movement : MonoBehaviour {
     private SpriteRenderer sr;
     public string moveleft, moveright, moveforward, moveback, hurt_by_bullet;
     public Sprite[] sprites;
+    public Game_UI GUI;
 
     void Start()
     {
@@ -76,6 +77,7 @@ public class Tank_Movement : MonoBehaviour {
     {
         if (col.gameObject.tag == hurt_by_bullet)
         {
+            GUI.game_over();
             Destroy(col.gameObject);
             Destroy(gameObject);
         }
