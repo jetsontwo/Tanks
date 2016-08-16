@@ -11,6 +11,7 @@ public class Tank_Movement : MonoBehaviour {
     public string moveleft, moveright, moveforward, moveback, hurt_by_bullet;
     public Sprite[] sprites;
     public Game_UI GUI;
+    public ParticleSystem explosion;
 
     void Start()
     {
@@ -78,6 +79,7 @@ public class Tank_Movement : MonoBehaviour {
         if (col.gameObject.tag == hurt_by_bullet)
         {
             GUI.game_over();
+            Instantiate(explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             Destroy(col.gameObject);
             Destroy(gameObject);
         }
