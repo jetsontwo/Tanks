@@ -12,6 +12,8 @@ public class Tank_Movement : MonoBehaviour {
     public Sprite[] sprites;
     public Game_UI GUI;
     public ParticleSystem explosion;
+    public GameObject broken_tank, broken_tank_top;
+    private Transform turret_trans;
 
     void Start()
     {
@@ -61,10 +63,21 @@ public class Tank_Movement : MonoBehaviour {
         {
             if (wait_ticks > 1)
             {
-                count += 1;
-                if (count == 8)
+                if(moveVert < 0)
                 {
-                    count = 0;
+                    count += 1;
+                    if (count >= 7)
+                    {
+                        count = 0;
+                    }
+                }
+                else if(moveVert > 0)
+                {
+                    count -= 1;
+                    if (count <= 0)
+                    {
+                        count = 7;
+                    }
                 }
                 wait_ticks = 0;
             }
@@ -79,7 +92,18 @@ public class Tank_Movement : MonoBehaviour {
         if (col.gameObject.tag == hurt_by_bullet)
         {
             GUI.game_over();
-            Instantiate(explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+            Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
+            Instantiate(broken_tank, gameObject.transform.position, transform.rotation);
+            Transform[] trans = GetComponentsInChildren<Transform>();
+            foreach(Transform t in trans)
+            {
+                if (t.tag != "Player")
+                {
+                    turret_trans = t;
+                }
+            }
+            GameObject turret = (GameObject)Instantiate(broken_tank_top, gameObject.transform.position, turret_trans.rotation);
+            turret.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Cos(col.transform.eulerAngles.z), Mathf.Sin(col.transform.eulerAngles.z));
             Destroy(col.gameObject);
             Destroy(gameObject);
         }
