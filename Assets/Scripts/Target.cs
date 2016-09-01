@@ -13,7 +13,7 @@ public class Target : MonoBehaviour {
     {
         if (col.gameObject.tag == "bullet_red")
         {
-            Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
+            Instantiate(explosion, new Vector3(transform.position.x, transform.position.y, -1f), Quaternion.identity);
             Destroy(gameObject);
             GUI.add_score();
         }

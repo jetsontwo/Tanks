@@ -19,7 +19,16 @@ public class Bullet_Movement : MonoBehaviour {
         angle = transform.eulerAngles.z;
         cur_tag = c.tag;
 
-        if(cur_tag == "wall_N" || cur_tag == "wall_W" || cur_tag == "wall_E" || cur_tag == "wall_S" && times_bounced < 4)
+        /*
+        Vector3 impactPosition = new Vector3(0.707,0.707,0);
+        Vector3 impactNormal;
+
+        Ax + By + Cz + D = 0;
+
+        y = x 
+        */
+
+        if (cur_tag == "wall_N" || cur_tag == "wall_W" || cur_tag == "wall_E" || cur_tag == "wall_S" && times_bounced < 4)
         {
             if (transform.eulerAngles.z >= 0 && transform.eulerAngles.z < 90)
             {

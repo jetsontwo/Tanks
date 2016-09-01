@@ -97,7 +97,7 @@ public class Tank_Movement : MonoBehaviour {
             Transform[] trans = GetComponentsInChildren<Transform>();
             foreach(Transform t in trans)
             {
-                if (t.tag != "Player")
+                if (t.tag == "turret")
                 {
                     turret_trans = t;
                 }

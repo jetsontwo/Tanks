@@ -11,12 +11,13 @@ public class Game_UI : MonoBehaviour {
     public Button game_over_button;
     public Random_Generation rg;
     private float time;
-    private bool can_score;
+    private bool can_score, can_count;
 
 	// Use this for initialization
 	void Start () {
         score = 0;
         can_score = true;
+        can_count = true;
 	}
 	
 	public void add_score()
@@ -33,6 +34,7 @@ public class Game_UI : MonoBehaviour {
         game_over_button.gameObject.SetActive(true);
         rg.can_spawn = false;
         can_score = false;
+        can_count = false;
     }
 
     public void return_main_menu()
@@ -44,7 +46,7 @@ public class Game_UI : MonoBehaviour {
     {
         score_text.text = "Score: " + score;
         time += Time.deltaTime;
-        if(time <= 60)
+        if(time <= 60 && can_count)
         {
             timer_text.text = "Time Left: " + (int)(60 - time);
         }
